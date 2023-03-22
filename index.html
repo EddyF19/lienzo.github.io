@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body
+        {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0F2027;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        }
+    </style>
+</head>
+<body>
+    <canvas width="600" height="400"></canvas>
+
+<script>
+    var pantalla = document.querySelector('canvas');
+    var pincel = pantalla.getContext('2d');
+    pincel.fillStyle = 'rgb(247, 247, 247 )';
+    pincel.fillRect(0, 0, 600, 400);
+    var posicionX;
+    var posicionY;
+    var colors = ["red", "green", "blue"]
+    var x, y;
+    var i = 0;
+
+    //ORDEN ROJO, VERDER Y AZUL
+
+    pincel.fillStyle = "red";
+    pincel.fillRect(0,0,50,50);
+
+    pincel.fillStyle = "green";
+    pincel.fillRect(50,0,50,50);
+
+    pincel.fillStyle = "blue";
+    pincel.fillRect(100,0,50,50);
+    var puedoDibujar = false;
+
+    function dibujarCirculo(evento) {
+        
+
+        if(puedoDibujar) 
+        {
+            x = evento.pageX - pantalla.offsetLeft;
+            y = evento.pageY - pantalla.offsetTop;
+            
+            console.log(x +", " + y);
+
+            if (x < 51 && x >= 0 && y >=0 && y <50)
+            {
+                i = 0;
+                console.log(i)
+            }
+
+            else if (x > 50 && x <= 100 && y > 0 && y <= 50)
+            {
+                i = 1;
+                console.log(i)
+            }
+
+            else if (x > 100 && x <= 150 && y > 0 && y <= 50)
+            {
+                i = 2;
+                console.log(i)
+                console.log("FUE 3")
+            }
+
+            else
+            {
+                console.log(i);
+                pincel.fillStyle = colors[i];
+                pincel.beginPath();
+                pincel.arc(x, y, 5, 0, 2 * 3.14);
+                pincel.fill();
+                //console.log(x + y)
+            }
+        }
+
+    }
+
+    pantalla.onmousemove = dibujarCirculo;
+
+    function habilitarDibujar() {
+
+        puedoDibujar = true;        
+    }
+
+    function deshabilitarDibujar() {
+
+        puedoDibujar = false;
+    }
+
+    pantalla.onmousedown = habilitarDibujar;
+
+    pantalla.onmouseup = deshabilitarDibujar;
+
+</script>
+</body>
+</html>
+
+
